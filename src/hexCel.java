@@ -60,11 +60,18 @@ public class hexCel extends hexagon {
         super(0, 0, 0);
     }
 
+    public hexCel(double x, double y, double z, double sideLength){
+        super(x, y, z, 0, sideLength);
+        this.upLeftWall = '1';
+        this.downLeftWall = '1';
+        this.downWall = '1';
+    }
+
     public hexCel(double x, double y, double z, double orientation, double sideLength){
         super(x, y, z, orientation, sideLength);
-        this.upLeftWall = 1;
-        this.downLeftWall = 1;
-        this.downWall = 1;
+        this.upLeftWall = '1';
+        this.downLeftWall = '1';
+        this.downWall = '1';
     }
 
     public hexCel(double x, double y, double z, double orientation, double sideLength, char upWall, char upLeftWall, char downLeftWall, char downWall, char downRightWall, char upRightWall) {

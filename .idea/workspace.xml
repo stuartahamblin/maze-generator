@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="564e5d24-6855-4736-a1c0-ea8c110d1dd4" name="Default Changelist" comment="" />
+    <list default="true" id="564e5d24-6855-4736-a1c0-ea8c110d1dd4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/maze-generator/hexCel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/maze-generator/hexCel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/maze-generator/maze.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/maze-generator/maze.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/maze-generator/shapes/hexagon.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/maze-generator/shapes/hexagon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/maze-generator/view/textRender.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/maze-generator/view/textRender.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hexCel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hexCel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shapes/hexagon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shapes/hexagon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/textRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/textRender.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,65 +23,45 @@
     <session id="-1131106559">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="java" value="10" />
+          <entry key="view" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JAVA" value="10" />
+          <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="3979" />
+          <entry key="java" value="8238" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3979" />
+          <entry key="JAVA" value="8238" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shapes/polygon.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
-              <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-              <folding>
-                <element signature="e#139#140#0" expanded="true" />
-                <element signature="e#172#173#0" expanded="true" />
-                <element signature="e#224#225#0" expanded="true" />
-                <element signature="e#268#269#0" expanded="true" />
-                <element signature="e#84#85#0" expanded="true" />
-                <element signature="e#118#119#0" expanded="true" />
-                <element signature="e#191#192#0" expanded="true" />
-                <element signature="e#219#220#0" expanded="true" />
-                <element signature="e#193#194#0" expanded="true" />
-                <element signature="e#225#226#0" expanded="true" />
-                <element signature="e#275#276#0" expanded="true" />
-                <element signature="e#317#318#0" expanded="true" />
-                <element signature="e#353#354#0" expanded="true" />
-                <element signature="e#385#386#0" expanded="true" />
-                <element signature="e#435#436#0" expanded="true" />
-                <element signature="e#477#478#0" expanded="true" />
-                <element signature="e#513#514#0" expanded="true" />
-                <element signature="e#545#546#0" expanded="true" />
-                <element signature="e#595#596#0" expanded="true" />
-                <element signature="e#637#638#0" expanded="true" />
-                <element signature="e#674#675#0" expanded="true" />
-                <element signature="e#705#706#0" expanded="true" />
-                <element signature="e#755#756#0" expanded="true" />
-                <element signature="e#795#796#0" expanded="true" />
-              </folding>
+              <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -79,78 +69,28 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shapes/hexagon.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
-              <folding>
-                <element signature="e#125#126#0" expanded="true" />
-                <element signature="e#149#150#0" expanded="true" />
-                <element signature="e#388#389#0" expanded="true" />
-                <element signature="e#430#431#0" expanded="true" />
-                <element signature="e#467#468#0" expanded="true" />
-                <element signature="e#501#502#0" expanded="true" />
-                <element signature="e#825#826#0" expanded="true" />
-                <element signature="e#888#889#0" expanded="true" />
-                <element signature="e#1012#1013#0" expanded="true" />
-                <element signature="e#1049#1050#0" expanded="true" />
-                <element signature="e#419#420#0" expanded="true" />
-                <element signature="e#453#454#0" expanded="true" />
-                <element signature="e#437#438#0" expanded="true" />
-                <element signature="e#469#470#0" expanded="true" />
-                <element signature="e#520#521#0" expanded="true" />
-                <element signature="e#554#555#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hexCel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="945">
-              <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
-              <folding>
-                <element signature="e#92#93#0" expanded="true" />
-                <element signature="e#121#122#0" expanded="true" />
-                <element signature="e#163#164#0" expanded="true" />
-                <element signature="e#199#200#0" expanded="true" />
-                <element signature="e#234#235#0" expanded="true" />
-                <element signature="e#267#268#0" expanded="true" />
-                <element signature="e#317#318#0" expanded="true" />
-                <element signature="e#361#362#0" expanded="true" />
-                <element signature="e#398#399#0" expanded="true" />
-                <element signature="e#433#434#0" expanded="true" />
-                <element signature="e#487#488#0" expanded="true" />
-                <element signature="e#535#536#0" expanded="true" />
-                <element signature="e#568#569#0" expanded="true" />
-                <element signature="e#599#600#0" expanded="true" />
-                <element signature="e#645#646#0" expanded="true" />
-                <element signature="e#685#686#0" expanded="true" />
-                <element signature="e#723#724#0" expanded="true" />
-                <element signature="e#759#760#0" expanded="true" />
-                <element signature="e#815#816#0" expanded="true" />
-                <element signature="e#865#866#0" expanded="true" />
-                <element signature="e#901#902#0" expanded="true" />
-                <element signature="e#935#936#0" expanded="true" />
-                <element signature="e#1161#1162#0" expanded="true" />
-                <element signature="e#1207#1208#0" expanded="true" />
-                <element signature="e#1232#1233#0" expanded="true" />
-                <element signature="e#1253#1254#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="465">
+              <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/hexCel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="720">
+              <caret line="74" column="5" lean-forward="true" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/maze.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="24" column="38" lean-forward="true" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+            <state relative-caret-position="274">
+              <caret line="106" column="64" lean-forward="true" selection-start-line="106" selection-start-column="64" selection-end-line="106" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#170#171#0" expanded="true" />
-                <element signature="e#202#203#0" expanded="true" />
-                <element signature="e#264#265#0" expanded="true" />
-                <element signature="e#306#307#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -159,8 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/textRender.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+            <state relative-caret-position="91">
+              <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -174,6 +114,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -183,11 +126,12 @@
         <option value="$PROJECT_DIR$/src/maze/wilsonGenerator.java" />
         <option value="$PROJECT_DIR$/src/methods/wilsonGenerator.java" />
         <option value="$PROJECT_DIR$/src/hexCell.java" />
-        <option value="$PROJECT_DIR$/src/view/textRender.java" />
-        <option value="$PROJECT_DIR$/src/hexCel.java" />
         <option value="$PROJECT_DIR$/src/shapes/polygon.java" />
         <option value="$PROJECT_DIR$/src/shapes/hexagon.java" />
+        <option value="$PROJECT_DIR$/src/textRender.java" />
+        <option value="$PROJECT_DIR$/src/hexCel.java" />
         <option value="$PROJECT_DIR$/src/maze.java" />
+        <option value="$PROJECT_DIR$/src/view/textRender.java" />
       </list>
     </option>
   </component>
@@ -202,13 +146,15 @@
     <option name="width" value="1440" />
     <option name="height" value="823" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -221,23 +167,16 @@
               <item name="maze-generator" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="maze-generator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="maze-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="shapes" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550467447776" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550540999963" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -280,44 +219,47 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1550432330431</updated>
-      <workItem from="1550432331766" duration="27332000" />
+      <workItem from="1550432331766" duration="48752000" />
+      <workItem from="1550521536468" duration="6283000" />
+      <workItem from="1550528032257" duration="6926000" />
+      <workItem from="1550535256653" duration="3766000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27332000" />
+    <option name="totallyTimeSpent" value="65727000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="823" extended-state="6" />
     <layout>
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15307583" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1595136" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" weight="0.32968536" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.32968536" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32968536" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33242133" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32968536" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32968536" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Database" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,138 +269,47 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/shapes/hexCell.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/maze/walledCell.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="30" lean-forward="true" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/methods/wilsonGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/shapes/hexCell.java" />
+    <entry file="file://$PROJECT_DIR$/src/maze/walledCell.java" />
+    <entry file="file://$PROJECT_DIR$/src/methods/wilsonGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/view">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shapes/polygon.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-          <folding>
-            <element signature="e#139#140#0" expanded="true" />
-            <element signature="e#172#173#0" expanded="true" />
-            <element signature="e#224#225#0" expanded="true" />
-            <element signature="e#268#269#0" expanded="true" />
-            <element signature="e#84#85#0" expanded="true" />
-            <element signature="e#118#119#0" expanded="true" />
-            <element signature="e#191#192#0" expanded="true" />
-            <element signature="e#219#220#0" expanded="true" />
-            <element signature="e#193#194#0" expanded="true" />
-            <element signature="e#225#226#0" expanded="true" />
-            <element signature="e#275#276#0" expanded="true" />
-            <element signature="e#317#318#0" expanded="true" />
-            <element signature="e#353#354#0" expanded="true" />
-            <element signature="e#385#386#0" expanded="true" />
-            <element signature="e#435#436#0" expanded="true" />
-            <element signature="e#477#478#0" expanded="true" />
-            <element signature="e#513#514#0" expanded="true" />
-            <element signature="e#545#546#0" expanded="true" />
-            <element signature="e#595#596#0" expanded="true" />
-            <element signature="e#637#638#0" expanded="true" />
-            <element signature="e#674#675#0" expanded="true" />
-            <element signature="e#705#706#0" expanded="true" />
-            <element signature="e#755#756#0" expanded="true" />
-            <element signature="e#795#796#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/textRender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shapes/hexagon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="465">
+          <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/textRender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/maze.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="106" column="64" lean-forward="true" selection-start-line="106" selection-start-column="64" selection-end-line="106" selection-end-column="64" />
           <folding>
-            <element signature="e#125#126#0" expanded="true" />
-            <element signature="e#149#150#0" expanded="true" />
-            <element signature="e#388#389#0" expanded="true" />
-            <element signature="e#430#431#0" expanded="true" />
-            <element signature="e#467#468#0" expanded="true" />
-            <element signature="e#501#502#0" expanded="true" />
-            <element signature="e#825#826#0" expanded="true" />
-            <element signature="e#888#889#0" expanded="true" />
-            <element signature="e#1012#1013#0" expanded="true" />
-            <element signature="e#1049#1050#0" expanded="true" />
-            <element signature="e#419#420#0" expanded="true" />
-            <element signature="e#453#454#0" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
-            <element signature="e#469#470#0" expanded="true" />
-            <element signature="e#520#521#0" expanded="true" />
-            <element signature="e#554#555#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hexCel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
-          <folding>
-            <element signature="e#92#93#0" expanded="true" />
-            <element signature="e#121#122#0" expanded="true" />
-            <element signature="e#163#164#0" expanded="true" />
-            <element signature="e#199#200#0" expanded="true" />
-            <element signature="e#234#235#0" expanded="true" />
-            <element signature="e#267#268#0" expanded="true" />
-            <element signature="e#317#318#0" expanded="true" />
-            <element signature="e#361#362#0" expanded="true" />
-            <element signature="e#398#399#0" expanded="true" />
-            <element signature="e#433#434#0" expanded="true" />
-            <element signature="e#487#488#0" expanded="true" />
-            <element signature="e#535#536#0" expanded="true" />
-            <element signature="e#568#569#0" expanded="true" />
-            <element signature="e#599#600#0" expanded="true" />
-            <element signature="e#645#646#0" expanded="true" />
-            <element signature="e#685#686#0" expanded="true" />
-            <element signature="e#723#724#0" expanded="true" />
-            <element signature="e#759#760#0" expanded="true" />
-            <element signature="e#815#816#0" expanded="true" />
-            <element signature="e#865#866#0" expanded="true" />
-            <element signature="e#901#902#0" expanded="true" />
-            <element signature="e#935#936#0" expanded="true" />
-            <element signature="e#1161#1162#0" expanded="true" />
-            <element signature="e#1207#1208#0" expanded="true" />
-            <element signature="e#1232#1233#0" expanded="true" />
-            <element signature="e#1253#1254#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/maze.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="24" column="38" lean-forward="true" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#170#171#0" expanded="true" />
-            <element signature="e#202#203#0" expanded="true" />
-            <element signature="e#264#265#0" expanded="true" />
-            <element signature="e#306#307#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="720">
+          <caret line="74" column="5" lean-forward="true" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
         </state>
       </provider>
     </entry>

@@ -33,12 +33,12 @@ public class hexagon extends polygon {
         }
     }
 
-    public double getBottomToCentroid(){                                    //need to refactor for orientation other than 0
-        return (Math.sqrt(3) * super.getSideLength())/ 2;
+    public static double getBottomToCentroid(double sideLength){            //need to refactor for orientation other than 0
+        return (Math.sqrt(3) * sideLength)/ 2;
     }
 
-    public double getLeftToCentroid(){                                      //need to refactor for orientation other than 0
-        return getSideLength();
+    public static double getLeftToCentroid(double sideLength){                                      //need to refactor for orientation other than 0
+        return sideLength;
     }
 
     public hexagon(){
