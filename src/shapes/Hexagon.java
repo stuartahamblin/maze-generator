@@ -1,6 +1,6 @@
 package shapes;
 
-public class hexagon extends polygon {
+public class Hexagon extends Polygon {
 
     private double orientationAngle;                                 // 0 <= orientation < 60
 
@@ -41,19 +41,19 @@ public class hexagon extends polygon {
         return sideLength;
     }
 
-    public hexagon(){
+    public Hexagon(){
         setCentroid(0,0,0);
     }
 
-    public hexagon(double x, double y){
+    public Hexagon(double x, double y){
         setCentroid(x,y,0);
     }
 
-    public hexagon(double x, double y, double z){
+    public Hexagon(double x, double y, double z){
         setCentroid(x,y,z);
     }
 
-    public hexagon(double x, double y, double z, double orientation, double sideLength){
+    public Hexagon(double x, double y, double z, double orientation, double sideLength){
         setCentroid(x,y,z);
         setOrientationAngle(orientation);
         setSideLength(sideLength);

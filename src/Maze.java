@@ -1,18 +1,18 @@
-import shapes.hexagon;
-import view.textRender;
+import shapes.Hexagon;
+import view.TextRender;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class maze {
+public class Maze {
 
-    private List<List<hexCel>> hexLayout;
+    private List<List<HexCel>> hexLayout;
 
-    public List<List<hexCel>> getHexLayout() {
+    public List<List<HexCel>> getHexLayout() {
         return hexLayout;
     }
 
-    public void setHexLayout(List<List<hexCel>> hexLayout) {
+    public void setHexLayout(List<List<HexCel>> hexLayout) {
         this.hexLayout = hexLayout;
     }
 
@@ -33,17 +33,17 @@ public class maze {
 
     public void initializeMaze(String[] layout, double sideLength){
         int shiftUp = shiftZeroUp(layout);
-        double bottomToCentroid = hexagon.getBottomToCentroid(sideLength);
-        double leftToCentroid = hexagon.getLeftToCentroid(sideLength);
-        List<List<hexCel>> outputLayout = new ArrayList<>();
+        double bottomToCentroid = Hexagon.getBottomToCentroid(sideLength);
+        double leftToCentroid = Hexagon.getLeftToCentroid(sideLength);
+        List<List<HexCel>> outputLayout = new ArrayList<>();
         for(int i = 0 ; i <= layout.length-1; i++){
-            var buildArray = new ArrayList<hexCel>();
+            var buildArray = new ArrayList<HexCel>();
             for(int j = 0 ; j < layout[i].length() ; j++){
                 if(layout[i].charAt(j) == '1'){
                     double x = (2*j+1)*leftToCentroid;
                     double y = (shiftUp + ((2*(layout.length - i) -1) - j))*bottomToCentroid;
 //                    System.out.println("x: " + x + ", y: " + y);
-                    hexCel buildCel = new hexCel(x, y, 0, sideLength);
+                    HexCel buildCel = new HexCel(x, y, 0, sideLength);
                     if(j < layout[i].length()-1){                                           //build wall if next item is not '1'
                         if(layout[i].charAt(j+1) != '1'){
                             buildCel.setDownRightWall('1');
@@ -88,14 +88,14 @@ public class maze {
 
     }
 
-    public static void quickWallRenderText(List<List<hexCel>> objectLists){
+    public static void quickWallRenderText(List<List<HexCel>> objectLists){
         for(int i = 0 ; i < objectLists.size() ; i++){
             StringBuilder buildLine0 = new StringBuilder();
             for(int j = 0 ; j < objectLists.get(i).size() ; j++){
                 if(objectLists.get(i).get(j) == null){
-                    buildLine0.append(textRender.renderWall("U", '0'));
+                    buildLine0.append(TextRender.renderWall("U", '0'));
                 } else {
-                    buildLine0.append(textRender.renderWall("U", objectLists.get(i).get(j).getUpWall()));
+                    buildLine0.append(TextRender.renderWall("U", objectLists.get(i).get(j).getUpWall()));
                 }
                 buildLine0.append(" ");
             }
@@ -103,11 +103,11 @@ public class maze {
             StringBuilder buildLine1 = new StringBuilder();
             for(int k = 0 ; k < objectLists.get(i).size() ; k++){
                 if(objectLists.get(i).get(k) == null){
-                    buildLine0.append(textRender.renderWall("UL", '0'));
-                    buildLine0.append(textRender.renderWall("UR", '0'));
+                    buildLine0.append(TextRender.renderWall("UL", '0'));
+                    buildLine0.append(TextRender.renderWall("UR", '0'));
                 } else {
-                    buildLine1.append(textRender.renderWall("UL", objectLists.get(i).get(k).getUpLeftWall()));
-                    buildLine1.append(textRender.renderWall("UR", objectLists.get(i).get(k).getUpRightWall()));
+                    buildLine1.append(TextRender.renderWall("UL", objectLists.get(i).get(k).getUpLeftWall()));
+                    buildLine1.append(TextRender.renderWall("UR", objectLists.get(i).get(k).getUpRightWall()));
                 }
                 buildLine1.append(" ");
             }
@@ -115,13 +115,13 @@ public class maze {
             StringBuilder buildLine2 = new StringBuilder();
             for(int l = 0 ; l < objectLists.get(i).size() ; l++){
                 if(objectLists.get(i).get(l) == null){
-                    buildLine0.append(textRender.renderWall("DL", '0'));
-                    buildLine0.append(textRender.renderWall("D", '0'));
-                    buildLine0.append(textRender.renderWall("DR", '0'));
+                    buildLine0.append(TextRender.renderWall("DL", '0'));
+                    buildLine0.append(TextRender.renderWall("D", '0'));
+                    buildLine0.append(TextRender.renderWall("DR", '0'));
                 } else {
-                    buildLine2.append(textRender.renderWall("DL", objectLists.get(i).get(l).getDownLeftWall()));
-                    buildLine2.append(textRender.renderWall("D", objectLists.get(i).get(l).getDownWall()));
-                    buildLine2.append(textRender.renderWall("DR", objectLists.get(i).get(l).getDownRightWall()));
+                    buildLine2.append(TextRender.renderWall("DL", objectLists.get(i).get(l).getDownLeftWall()));
+                    buildLine2.append(TextRender.renderWall("D", objectLists.get(i).get(l).getDownWall()));
+                    buildLine2.append(TextRender.renderWall("DR", objectLists.get(i).get(l).getDownRightWall()));
                 }
                 buildLine2.append(" ");
             }
@@ -130,19 +130,19 @@ public class maze {
     }
 
     public static void main(String[] args) {
-        maze sampleMaze1 = new maze();
+        Maze sampleMaze1 = new Maze();
         String[] layout = {"01111",
                            "1",
                            "1111",
                            "1"};
         sampleMaze1.initializeMaze(layout, 5);
-        List<List<hexCel>> sampleMap = sampleMaze1.getHexLayout();
+        List<List<HexCel>> sampleMap = sampleMaze1.getHexLayout();
         System.out.println(sampleMap);
         quickWallRenderText(sampleMap);
 //        System.out.println(sampleMap.get(0).get(0));
 //        System.out.println(sampleMap.get(0).get(0).getUpRightWall());
-//        System.out.println(textRender.renderWall("UL", sampleMap.get(0).get(0).getUpLeftWall()));
-//        textRender.renderWall("U",'1');
+//        System.out.println(TextRender.renderWall("UL", sampleMap.get(0).get(0).getUpLeftWall()));
+//        TextRender.renderWall("U",'1');
 //        System.out.println(sampleMap.get(0).size());
 //        hexPortionRender('1',0);
 //        hexPortionRender('1',1);

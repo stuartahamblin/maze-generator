@@ -1,6 +1,6 @@
 package view;
 
-public class textRender {
+public class TextRender {
 
     public static void hexPortionRender(int celType, int portion){
         String[] fullString = {" __ ","/  \\", "\\__/"};
