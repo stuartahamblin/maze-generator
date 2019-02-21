@@ -1,12 +1,12 @@
-import shapes.hexagon;
+import shapes.Hexagon;
 
-public class hexCel extends hexagon {
-    private char upWall;
-    private char upLeftWall;
-    private char downLeftWall;
-    private char downWall;
-    private char downRightWall;
-    private char upRightWall;
+public class HexCel extends Hexagon {
+    private char upWall = '0';
+    private char upLeftWall = '0';
+    private char downLeftWall = '0';
+    private char downWall = '0';
+    private char downRightWall = '0';
+    private char upRightWall = '0';
 
     public char getUpWall() {
         return upWall;
@@ -56,25 +56,25 @@ public class hexCel extends hexagon {
         this.upRightWall = upRightWall;
     }
 
-    public hexCel(){
+    public HexCel(){
         super(0, 0, 0);
     }
 
-    public hexCel(double x, double y, double z, double sideLength){
+    public HexCel(double x, double y, double z, double sideLength){
         super(x, y, z, 0, sideLength);
         this.upLeftWall = '1';
         this.downLeftWall = '1';
         this.downWall = '1';
     }
 
-    public hexCel(double x, double y, double z, double orientation, double sideLength){
+    public HexCel(double x, double y, double z, double orientation, double sideLength){
         super(x, y, z, orientation, sideLength);
         this.upLeftWall = '1';
         this.downLeftWall = '1';
         this.downWall = '1';
     }
 
-    public hexCel(double x, double y, double z, double orientation, double sideLength, char upWall, char upLeftWall, char downLeftWall, char downWall, char downRightWall, char upRightWall) {
+    public HexCel(double x, double y, double z, double orientation, double sideLength, char upWall, char upLeftWall, char downLeftWall, char downWall, char downRightWall, char upRightWall) {
         super(x, y, z, orientation, sideLength);
         this.upWall = upWall;
         this.upLeftWall = upLeftWall;

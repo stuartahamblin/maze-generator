@@ -1,6 +1,6 @@
 package shapes;
 
-abstract public class polygon {
+abstract public class Polygon {
 
     private int sides;
     private double sideLength;
