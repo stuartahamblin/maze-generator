@@ -11,40 +11,41 @@ public class TextRender {
         }
     }
 
-    public static String renderWall(String side, char type){
+    public static String renderWall(String side, char wallType){
         switch(side){
             case "U":
-                switch(type){
+                switch(wallType){
                     case '1': return " __ ";
-                    default: return "XXXX";
+                    case '0': return "    ";
+                    default: return " xx ";
                 }
             case "UL":
-                switch(type){
+                switch(wallType){
                     case '1': return "/  ";
-                    default: return "   ";
-                }
-            case "DL":
-                switch(type){
-                    case '1': return "\\";
-                    default: return " ";
-                }
-            case "D":
-                switch(type){
-                    case '1': return "__";
-                    default: return "  ";
-                }
-            case "DR":
-                switch(type){
-                    case '1': return "/ ";
-                    default: return " ";
+                    case '0': return "   ";
+                    default: return "X  ";
                 }
             case "UR":
-                switch(type){
+            case "DL":
+                switch(wallType){
                     case '1': return "\\";
-                    default: return " ";
+                    case '0': return " ";
+                    default: return "X";
+                }
+            case "D":
+                switch(wallType){
+                    case '1': return "__";
+                    case '0': return "  ";
+                    default: return "xx";
+                }
+            case "DR":
+                switch(wallType){
+                    case '1': return "/";
+                    case '0': return " ";
+                    default: return "X";
                 }
         }
-        return "THIS IS NOT WORKING";
+        return "";
     }
 
     public static void renderRows(){

@@ -1,12 +1,12 @@
 import shapes.Hexagon;
 
 public class HexCel extends Hexagon {
-    private char upWall;
-    private char upLeftWall;
-    private char downLeftWall;
-    private char downWall;
-    private char downRightWall;
-    private char upRightWall;
+    private char upWall = '0';
+    private char upLeftWall = '0';
+    private char downLeftWall = '0';
+    private char downWall = '0';
+    private char downRightWall = '0';
+    private char upRightWall = '0';
 
     public char getUpWall() {
         return upWall;
