@@ -17,7 +17,7 @@ public class TextRender {
                 switch(wallType){
                     case '1': return " __ ";
                     case '0': return "    ";
-                    default: return " xx ";
+                    default: return " XX ";
                 }
             case "UL":
                 switch(wallType){
