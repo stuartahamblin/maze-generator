@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="564e5d24-6855-4736-a1c0-ea8c110d1dd4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/maze-generator/maze.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/maze-generator/maze.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/maze-generator/view/textRender.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/maze-generator/view/textRender.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/maze-generator/maze.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Maze.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/TextRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/TextRender.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,12 +40,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="2" />
-          <entry key="java" value="19756" />
+          <entry key="java" value="20636" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="19756" />
+          <entry key="JAVA" value="20636" />
           <entry key="PLAIN_TEXT" value="2" />
         </counts>
       </usages-collector>
@@ -58,8 +56,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Maze.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="296" column="44" selection-start-line="296" selection-start-column="44" selection-end-line="296" selection-end-column="44" />
+            <state relative-caret-position="291">
+              <caret line="311" lean-forward="true" selection-start-line="311" selection-end-line="311" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#209#210#0" expanded="true" />
@@ -68,9 +66,7 @@
                 <element signature="e#3736#4636#0" />
                 <element signature="e#4687#7013#0" />
                 <element signature="e#7019#11103#0" />
-                <element signature="e#11995#12015#0" expanded="true" />
-                <element signature="e#13279#13309#0" />
-                <element signature="e#13614#13660#0" />
+                <element signature="e#16423#16469#0" />
               </folding>
             </state>
           </provider>
@@ -80,7 +76,7 @@
         <entry file="file://$PROJECT_DIR$/src/view/TextRender.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
               <folding>
                 <element signature="method#renderWall#0;class#TextRender#0" />
               </folding>
@@ -152,8 +148,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -183,12 +177,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550937556219" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551110005574" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -243,13 +239,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177920000" />
+    <option name="totallyTimeSpent" value="182969000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="823" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16595136" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16809729" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -258,14 +254,14 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2599179" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33242133" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3994528" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32968536" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32968536" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32968536" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -316,7 +312,7 @@
     <entry file="file://$PROJECT_DIR$/src/view/TextRender.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
           <folding>
             <element signature="method#renderWall#0;class#TextRender#0" />
           </folding>
@@ -325,8 +321,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Maze.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="296" column="44" selection-start-line="296" selection-start-column="44" selection-end-line="296" selection-end-column="44" />
+        <state relative-caret-position="291">
+          <caret line="311" lean-forward="true" selection-start-line="311" selection-end-line="311" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#209#210#0" expanded="true" />
@@ -335,9 +331,7 @@
             <element signature="e#3736#4636#0" />
             <element signature="e#4687#7013#0" />
             <element signature="e#7019#11103#0" />
-            <element signature="e#11995#12015#0" expanded="true" />
-            <element signature="e#13279#13309#0" />
-            <element signature="e#13614#13660#0" />
+            <element signature="e#16423#16469#0" />
           </folding>
         </state>
       </provider>

@@ -228,145 +228,64 @@ public class Maze {
         }
     }
 
-//    public void renderTextMaze(){
-//        List<List<HexCel>> hL = getHexLayout();
-//        String[][] celLay = {{"UL","UR"},{"DL","D","DR"}};
-//        int c = 0;
-//        for(int i = 0 ; i < hL.size() ; i++){
-//            for( ; c < celLay[][] ; ){
-//                for(int j = 0 ; j < hL.get(i).size() ; j++){
-//                    System.out.println("i: " + i + " , j: " + j);
-//                    if(c == i){
-//                        System.out.println(renderTextMazeWall(i,j,"U"));
-//                    } else if (c == i+1){
-//                        System.out.println(renderTextMazeWall(i,j,"U"));
-//                    }
-//                }
-//                c++;
-//            }
-//
-//        }
-//
-//    }
-
-
-
-    public List<List<List<Integer>>> celRenderSchedule(){
-        List<List<HexCel>> hL = getHexLayout();
-        List<List<List<Integer>>> output = new ArrayList<List<List<Integer>>>();
-        int maxRowLength = 1;
-        int shift = 1;
-//        for(int col = 0 ; col < maxRowLength ; col++){
-        for(int col = 0 ; col < 2 ; col++){
-//            for(int row = 0 ; row < hL.size()+maxRowLength-1; row++){
-            for(int row = 0 ; row < 5; row++){
-
-                System.out.println(output);
-//            for(int row = 0 ; row < 3 ; row++){
-                List<List<Integer>> listBuild1 = new ArrayList<>();
-                List<List<Integer>> listBuild2 = new ArrayList<>();
-                List<Integer> l1 = new ArrayList<>();
-                List<Integer> l2 = new ArrayList<>();
-                if(col == 0){
-                    if(row < hL.size()){
-//                       l1.add(row);
-//                       l1.add(col);
-                        l1.add(row*2);
-                        l2.add(row*2+1);
-
-                        listBuild1.add(l1);
-                        listBuild2.add(l2);
-                        output.add(listBuild1);
-                        output.add(listBuild2);
-                        int currentRowLength = hL.get(row).size();
-                        if(currentRowLength > maxRowLength){
-                            maxRowLength = currentRowLength;
-                        }
-                    } else {
-                        listBuild1.add(null);
-                        output.add(listBuild1);
-                    }
-                } else {
-                    if(row == 0){
-                        for(int n = 0; n < col; n++){
-//                            l1.add(null);
-//                            listBuild1.add(l1);
-                            output.get(n).add(null);
-                        }
-                    }
-                    if(row <= hL.size()-col){
-
-//                    System.out.println(output.get());
-//                    System.out.println(output.size()-1);
-//                    l1.add(col);
-//                    l1.add(row+2);
-//                    System.out.println(l1);
-//                    System.out.println(output.get(col));
-//                    output.get(col-1).get(row).add(row*2+col*2+1);
-
-
-//                    System.out.println(output.get(output.size()-1).get(col-1).get(0));
-//                    l1.add(output.get(output.size()-1).get(col-1).get(0)+row*2+1);
-//                    l2.add(output.get(output.size()-1).get(col-1).get(0)+row*2+2);
-                        System.out.println("col: " + col + " , row: " + row);
-                    l1.add(10);
-                    l2.add(20);
-                    output.get(2*row+col).add(l1);
-                    output.get(2*row+col+1).add(l2);
-                    } else {
-//                        l1.add(null);
-//                        listBuild1.add(l1);
-//                        output.add(listBuild1);
+    public static void AAATool(int[][][] AAA){
+        StringBuilder sB = new StringBuilder();
+        for(int row = 0 ; row < AAA.length ; row++){
+            for(int col = 0 ; col < AAA[row].length ; col++){
+                sB.append("[");
+                for(int xy = 0; xy < AAA[row][col].length ; xy++){
+                    sB.append(AAA[row][col][xy]);
+                    if(xy < AAA[row][col].length-1){
+                        sB.append(",");
                     }
                 }
+                sB.append("]");
+            }
+            System.out.println(sB);
+            sB.delete(0, sB.length());
+        }
+    }
 
+
+    public int[][][] celRenderSchedule(){
+        List<List<HexCel>> hL = getHexLayout();
+        int maxRowLength = 1;
+        for(int row = 0 ; row < hL.size(); row++){
+            int currentRowLength = hL.get(row).size();
+            if (currentRowLength > maxRowLength) {
+                maxRowLength = currentRowLength;
             }
         }
+        int[][][] output = new int[2*hL.size()+maxRowLength-1][maxRowLength][2];
+        for(int col = 0 ; col < maxRowLength ; col++){
+            for(int row = 0 ; row < hL.size(); row++){
+                for(int i = 0 ; i < col ; i++){
+                    output[i][col][0] = -1;
+                    output[i][col][1] = -1;
+                }
+                output[2*row+col][col][0] = row;
+                output[2*row+col][col][1] = col;
+                output[2*row+col+1][col][0] = row;
+                output[2*row+col+1][col][1] = col;
+                for(int f = 0 ; f < maxRowLength-col - 1 ; f++){
+                    output[2*hL.size() + maxRowLength -f - 2][col][0] = -1;
+                    output[2*hL.size() + maxRowLength -f - 2][col][1] = -1;
+                }
+            }
+        }
+//        AAATool(output);
         return output;
     }
 
-//    public void celPicker(){
-//        List<List<HexCel>> hL = getHexLayout();
-//        StringBuilder sB = new StringBuilder();
-//        int maxA = 1;
-//        for(int a = 0; a < maxA; a++ ){
-//            for(int n = 0 ; n < a ; n++){
-//                sB.append("null,  ");
-//            }
-//            for(int b = 0; b < hL.size() ; b++ ){
-//                if(a == 0){
-//                    int checkASize = hL.get(b).size();
-//                    if(checkASize > maxA){
-//                        maxA = checkASize;
-//                    }
-//                }
-//                for(int c = 0 ; c < 2 ; c++){
-//                    if(a <= hL.get(b).size() -1){
-//                            sB.append("(");
-//                            sB.append(b);
-//                            sB.append(",");
-//                            sB.append(a);
-//                            sB.append("), ");
-//                    } else {
-//                        sB.append("null, ");
-//                    }
-//                }
-//            }
-//            System.out.println(sB);
-//            sB.delete(0, sB.length());
-//        }
-//    }
-
     public static void main(String[] args) {
         Maze maze = new Maze();
-        String[] layout = {"111",
+        String[] layout = {"1111",
                            "111",
-                           "111"};
+                           "1111"};
         maze.initializeMaze(layout, 5);
-//        maze.renderQuickLayoutText();
-        List<List<List<Integer>>> cS = maze.celRenderSchedule();
-//        System.out.println(cS);
-//        maze.renderTextMaze();
+        maze.renderQuickLayoutText();
+        int[][][] cS = maze.celRenderSchedule();
+        AAATool(cS);
 
     }
 
