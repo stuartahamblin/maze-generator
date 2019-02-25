@@ -273,7 +273,6 @@ public class Maze {
                 }
             }
         }
-//        AAATool(output);
         return output;
     }
 
