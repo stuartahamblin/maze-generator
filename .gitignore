@@ -3,6 +3,7 @@
 
 # IntelliJ
 .idea/*
+.idea
 *.iml
 
 # Compiled output
