@@ -15,9 +15,9 @@ public class TextRender {
         switch(side){
             case "U":
                 switch(wallType){
-                    case '1': return " __ ";
-                    case '0': return "    ";
-                    default: return " XX ";
+                    case '1': return "__";
+                    case '0': return "  ";
+                    default: return "XX";
                 }
             case "UL":
                 switch(wallType){
