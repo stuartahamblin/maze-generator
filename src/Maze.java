@@ -31,48 +31,54 @@ public class Maze {
         return outputShiftUp;
     }
 
-    public void initializeMaze(String[] layout, double sideLength){
+    public String[] bufferEdges(String[] layout){
+        String[] output = new String[layout.length+2];
+        int maxL = 0;
+        for(String lay : layout){
+            if(maxL < lay.length()){
+                maxL = lay.length();
+            }
+        }
+        output[0] = new String(new char[maxL + 2]).replace("\0", "0");
+        output[layout.length+1] = new String(new char[maxL + 2]).replace("\0", "0");
+        StringBuilder sB = new StringBuilder();
+        for(int i = 0 ; i < layout.length ; i++){
+            sB.append("0");
+            sB.append(layout[i]);
+            int addZeros = maxL - layout[i].length()+1;
+            sB.append(new String(new char[addZeros]).replace("\0", "0"));
+            output[i+1] = sB.toString();
+            sB.delete(0, sB.length());
+        }
+        return output;
+    }
+
+    public void initializeMaze(String[] simpleLayout, double sideLength){
+        String[] layout = bufferEdges(simpleLayout);
         int shiftUp = shiftZeroUp(layout);
         double bottomToCentroid = Hexagon.getBottomToCentroid(sideLength);
         double leftToCentroid = Hexagon.getLeftToCentroid(sideLength);
         List<List<HexCel>> hL = new ArrayList<>();
-        for(int i = 0 ; i <= layout.length-1; i++){                                         //ROWS
+        for(int i = 0 ; i < layout.length; i++){                                    //ROWS
             var buildArray = new ArrayList<HexCel>();
-            for(int j = 0 ; j < layout[i].length() ; j++){                                  //COLUMNS
+            for(int j = 0 ; j < layout[i].length() ; j++){                          //COLUMNS
                 if(layout[i].charAt(j) == '1'){
                     double x = (2*j+1)*leftToCentroid;
                     double y = (shiftUp + ((2*(layout.length - i) -1) - j))*bottomToCentroid;
                     HexCel buildCel = new HexCel(x, y, 0, sideLength);
-                    if(j < layout[i].length()-1){                                           //build wall if next item is not '1'
-                        if(layout[i].charAt(j+1) != '1'){
+                        if(layout[i].charAt(j+1) != '1'){                           //build wall if next item is null
                             buildCel.setDownRightWall('1');
                         }
-                    }
-                    if(j == layout[i].length()-1){                                          //build wall if last in a row
-                        buildCel.setDownRightWall('1');
-                    }
-                    if(i == 0){                                                             //build walls if very top row
-                        buildCel.setUpWall('1');
-                        buildCel.setUpRightWall('1');
-                    }
-                    if(i != 0){
-                        if(hL.get(i-1).size() <= j+1){                            //build wall if upright index does not exist
-                            buildCel.setUpRightWall('1');
-                        }
-                        if(hL.get(i-1).size() <= j){                              //build wall if above index does not exist
-                            buildCel.setUpWall('1');
-                        }
-                        if(hL.get(i-1).size() > j){                               //build wall if above index is null
+                        if(hL.get(i-1).size() > j){                                 //build wall if above index is null
                             if(hL.get(i-1).get(j) == null){
                                 buildCel.setUpWall('1');
                             }
                         }
-                        if(hL.get(i-1).size() > j+1){                             //build wall if upright index is null
+                        if(hL.get(i-1).size() > j+1){                               //build wall if upright index is null
                             if(hL.get(i-1).get(j+1) == null){
                                     buildCel.setUpRightWall('1');
                                 }
                         }
-                    }
                     buildArray.add(buildCel);
                 } else {
                     buildArray.add(null);
@@ -83,7 +89,6 @@ public class Maze {
         setHexLayout(hL);
     }
 
-
     public void checkRenderValidInputs(){
         String[] sides = {"U","UL","DL","D","DR","UR"};
         List<List<HexCel>> hL = getHexLayout();
@@ -93,7 +98,7 @@ public class Maze {
             for(int i = 0 ; i < hL.size() ; i++){
                 for(int j = 0 ; j < hL.get(i).size() ; j++) {
                     if(hL.get(i).get(j) != null){
-                        sB.append(renderTextMazeWall(i,j,sides[w]));
+                        sB.append(renderStringMazeWall(i,j,sides[w]));
                         sB.append(", ");
                     } else if (hL.get(i).get(j) == null) {
                         sB.append(TextRender.renderWall(sides[w], '0'));
@@ -106,19 +111,13 @@ public class Maze {
         }
     }
 
-
-
-    static void wilsonAlgorithm(){
-
-    }
-
     public void renderQuickLayoutText(){
         List<List<HexCel>> objectLists = getHexLayout();
         for(int i = 0 ; i < objectLists.size() ; i++){
             StringBuilder buildLine0 = new StringBuilder();
             for(int j = 0 ; j < objectLists.get(i).size() ; j++){
                 if(objectLists.get(i).get(j) == null){
-                    buildLine0.append(TextRender.renderWall("U", '0'));                         //
+                    buildLine0.append(TextRender.renderWall("U", '0'));
                 } else {
                     buildLine0.append(TextRender.renderWall("U", objectLists.get(i).get(j).getUpWall()));
                 }
@@ -150,81 +149,58 @@ public class Maze {
                 }
                 buildLine2.append(" ");
             }
-//                System.out.println("row " + row + ", col " + col);
             System.out.println(buildLine2);
         }
     }
 
-    public String renderTextMazeWall(int row, int col, String side){
+    public String renderStringMazeWall(int row, int col, String side){
         String wallCheck = "";
         List<List<HexCel>> hL = getHexLayout();
-        int maxRow = hL.size()-1;
-        int maxCol = hL.get(row).size()-1;
         switch(side){
             case "U":
                 wallCheck += hL.get(row).get(col).getUpWall();
-                if(row != 0){                                                               //omit if row 0
-                    if(hL.get(row-1).size() > col){                                         //omit if compare !exist
-                        if (hL.get(row - 1).get(col) != null) {                             //omit if compare null
-                            wallCheck += hL.get(row - 1).get(col).getDownWall();
-                        }
-                    }
+                if (hL.get(row - 1).get(col) != null) {                             //omit if compare null
+                    wallCheck += hL.get(row - 1).get(col).getDownWall();
                 }
                 break;
             case "UL":
                 wallCheck += hL.get(row).get(col).getUpLeftWall();
-                if(col != 0){                                                               //omit if row 0
-                    if(hL.get(row).get(col-1) != null){                                     //omit if compare null
-                        wallCheck += hL.get(row).get(col-1).getDownRightWall();             //!exist na
-                    }
+                if(hL.get(row).get(col-1) != null){                                 //omit if compare null
+                    wallCheck += hL.get(row).get(col-1).getDownRightWall();
                 }
                 break;
             case "DL":
                 wallCheck += hL.get(row).get(col).getDownLeftWall();
-                if(row != maxRow && col != 0){                                              //omit if last row or first col
-                    if(hL.get(row+1).size() >= col){                                        //omit if compare !exist
-                        if(hL.get(row+1).get(col-1) != null){                               //omit if compare null
-                            wallCheck += hL.get(row+1).get(col-1).getUpRightWall();
-                        }
-                    }
+                if(hL.get(row+1).get(col-1) != null){                               //omit if compare null
+                    wallCheck += hL.get(row+1).get(col-1).getUpRightWall();
                 }
                 break;
             case "D":
                 wallCheck += hL.get(row).get(col).getDownWall();
-                if(row != maxRow){                                                          //omit if last row
-                    if(hL.get(row+1).size() > col){                                         //omit if compare !exist
-                        if(hL.get(row+1).get(col) != null){                                 //omit if compare null
-                            wallCheck += hL.get(row+1).get(col).getUpWall();
-                        }
-                    }
+                if(hL.get(row+1).get(col) != null){                                 //omit if compare null
+                    wallCheck += hL.get(row+1).get(col).getUpWall();
                 }
                 break;
             case "DR":
                 wallCheck += hL.get(row).get(col).getDownRightWall();
-                if(col != maxCol){                                                          //omit if last col
-                    if(hL.get(row).get(col+1) != null){                                     //omit if compare null
-                        wallCheck += hL.get(row).get(col+1).getUpLeftWall();                //!exist na
-                    }
+                if(hL.get(row).get(col+1) != null){                                 //omit if compare null
+                    wallCheck += hL.get(row).get(col+1).getUpLeftWall();
                 }
                 break;
             case "UR":
                 wallCheck += hL.get(row).get(col).getUpRightWall();
-                if(row != 0 && col < hL.get(row -1).size()-1){                              //omit if first row or last col
-                    if(hL.get(row-1).size() - 1 > col){                                     //omit if compare !exist
-                        if(hL.get(row-1).get(col+1) != null){                               //omit if compare null
-                            wallCheck += hL.get(row-1).get(col+1).getDownLeftWall();
-                        }
-                    }
+                if(hL.get(row-1).get(col+1) != null){                               //omit if compare null
+                    wallCheck += hL.get(row-1).get(col+1).getDownLeftWall();
                 }
                 break;
         }
         switch(wallCheck){
             case "1":
             case "01":
-            case "10": return TextRender.renderWall(side, '1');                             //wall exists
+            case "10": return TextRender.renderWall(side, '1');             //wall exists
             case "0":
-            case "00": return TextRender.renderWall(side, '0');                             //no wall
-            default: return TextRender.renderWall(side, 'x');                               //double wall or error
+            case "00": return TextRender.renderWall(side, '0');             //no wall
+            default: return TextRender.renderWall(side, 'x');               //double wall or error
         }
     }
 
@@ -246,65 +222,107 @@ public class Maze {
         }
     }
 
-
     public int[][][] celRenderSchedule(){
         List<List<HexCel>> hL = getHexLayout();
-        int maxRowLength = 1;
-        for(int row = 0 ; row < hL.size(); row++){
-            int currentRowLength = hL.get(row).size();
-            if (currentRowLength > maxRowLength) {
-                maxRowLength = currentRowLength;
-            }
-        }
-        int[][][] output = new int[2*hL.size()+maxRowLength-1][maxRowLength][2];
-        for(int col = 0 ; col < maxRowLength ; col++){
-            for(int row = 0 ; row < hL.size(); row++){
-                for(int i = 0 ; i < col ; i++){
-                    output[i][col][0] = -1;
-                    output[i][col][1] = -1;
-                }
-                output[2*row+col][col][0] = row;
-                output[2*row+col][col][1] = col;
-                output[2*row+col+1][col][0] = row;
-                output[2*row+col+1][col][1] = col;
-                for(int f = 0 ; f < maxRowLength-col - 1 ; f++){
-                    output[2*hL.size() + maxRowLength -f - 2][col][0] = -1;
-                    output[2*hL.size() + maxRowLength -f - 2][col][1] = -1;
+        int rowLength = hL.get(0).size();
+        int[][][] output = new int[2*hL.size()+rowLength][rowLength][3];
+        for(int row = 2-rowLength ; row < hL.size()+rowLength/2; row++){
+            for(int h = 1 ; h < 3 ; h++){
+                for(int col = 0 ; col < rowLength ; col++){
+                    int pick = 2*row+col+h;
+                    if( pick >= 0 && pick < output.length){
+                        output[pick][col][0] = row;
+                        output[pick][col][1] = col;
+                        output[pick][col][2] = h;
+                        if(row >= hL.size()){
+                            output[pick][col][0] *= -1;             //negative row values represent blank/null hex cells
+                        }
+                        if(row < hL.size() && row >= 0){
+                            if(hL.get(row).get(col) == null){
+                                output[pick][col][0] = -1;          //negative row values represent blank/null hex cells
+                            }
+                        }
+                    }
                 }
             }
         }
-        //sout
         return output;
+    }
+
+    public void renderTextMaze(){
+        int[][][] rS = celRenderSchedule();
+        StringBuilder sB = new StringBuilder();
+        for(int textLine = 3 ; textLine < rS.length - 3 ; textLine++){
+            for(int textString = 1 ; textString < rS[0].length-1 ; textString++){
+                int xPick = rS[textLine][textString][0];
+                int yPick = rS[textLine][textString][1];
+                int upperLowerHex = rS[textLine][textString][2];
+                if(xPick >= 0){                                                         //if present hex
+                    if(upperLowerHex == 1){                                             //if upper hex
+                        sB.append(renderStringMazeWall(xPick, yPick, "UL"));
+                        if(rS[textLine][textString+1][0] < 0){                          //if UR hex is blank/null
+                            sB.append(renderStringMazeWall(xPick, yPick, "UR"));
+                        }
+                    } else if (upperLowerHex == 2){                                     //if lower hex
+                        sB.append(renderStringMazeWall(xPick, yPick, "DL"));
+                        sB.append(renderStringMazeWall(xPick, yPick, "D"));
+                        if(rS[textLine][textString+1][0] < 0){                          //if DR hex is blank/null
+                            sB.append(renderStringMazeWall(xPick, yPick, "DR"));
+                        }
+                    }
+                } else {                                                                //if blank/null hex cells
+                    if(rS[textLine][textString][2] == 1){                               //if upper blank/null hex cell
+                        if(rS[textLine][textString-1][0] < 0){                          //if UL hex is blank/null
+                            sB.append(" ");
+                        }
+                        sB.append("  ");
+                    } else if (upperLowerHex == 2){                                     //if lower blank/null hex cell
+                        if(rS[textLine][textString-1][0] < 0){                          //if DL hex is blank/null
+                            sB.append(" ");
+                        }
+                        if(rS[textLine+1][textString][0] > 0){                          //if D hex present
+                            sB.append(renderStringMazeWall(rS[textLine+1][textString][0], rS[textLine+1][textString][1], "U"));
+                        } else {                                                        //if D hex blank/null
+                            sB.append("  ");
+                        }
+                    }
+                }
+//                System.out.println(sB +"       textLine = "+ textLine + ", textString =" + textString);
+            }
+            System.out.println(sB);
+            sB.delete(0,sB.length());
+        }
     }
 
     public static void main(String[] args) {
         Maze maze = new Maze();
         String[] layout = {"1111",
-                           "111",
-                           "1111"};
+                "11",
+                "011",
+                "01111"};
         maze.initializeMaze(layout, 5);
-        maze.renderQuickLayoutText();
-        int[][][] cS = maze.celRenderSchedule();
-        AAATool(cS);
-
+//        maze.getHexLayout().get(2).get(1).setDownRightWall('1');              //set double wall
+        maze.renderTextMaze();
     }
 
+
+
 //    public static void main(String[] args) {
-////
 //        Maze sampleM = new Maze();
 //        String[] layout = {"11111",
-//                           "0011",
-//                           "11111",
-//                           "001"};
+//                "0011",
+//                "11111",
+//                "001"};
 //        sampleM.initializeMaze(layout, 5);
 //        sampleM.getHexLayout().get(2).get(3).setUpWall('1');
 //        sampleM.renderQuickLayoutText();
 //        System.out.println("U TESTS:");
-//        System.out.println("row 0: " + sampleM.renderTextMazeWall(0,2,"U").equals(" __ "));
-//        System.out.println("compare another: " + sampleM.renderTextMazeWall(2,2,"U").equals(" __ "));
-//        System.out.println("double wall: " + sampleM.renderTextMazeWall(2,3,"U").equals(" XX "));
-//        System.out.println("compare null: " + sampleM.renderTextMazeWall(2,0,"U").equals(" __ "));
-//        System.out.println("compare notExist: " + sampleM.renderTextMazeWall(2,4,"U").equals(" __ "));
+//        System.out.println("row 0: " + sampleM.renderStringMazeWall(0, 2, "U").equals(" __ "));
+//        System.out.println("compare another: " + sampleM.renderStringMazeWall(2, 2, "U").equals(" __ "));
+//        System.out.println("double wall: " + sampleM.renderStringMazeWall(2, 3, "U").equals(" XX "));
+//        System.out.println("compare null: " + sampleM.renderStringMazeWall(2, 0, "U").equals(" __ "));
+//        System.out.println("compare notExist: " + sampleM.renderStringMazeWall(2, 4, "U").equals(" __ "));
+//    }
 
 //        Maze sampleUL = new Maze();
 //        String[] layoutUL = {"11111",
@@ -315,10 +333,10 @@ public class Maze {
 //        sampleUL.getHexLayout().get(0).get(1).setDownRightWall('1');
 //        sampleUL.renderQuickLayoutText();
 //        System.out.println("UL TESTS:");
-//        System.out.println("row 0: " + sampleUL.renderTextMazeWall(0,1,"UL").equals("/  "));
-//        System.out.println("compare another: " + sampleUL.renderTextMazeWall(2,2,"UL").equals("/  "));
-//        System.out.println("double wall: " + sampleUL.renderTextMazeWall(0,2,"UL").equals("X  "));
-//        System.out.println("compare null: " + sampleUL.renderTextMazeWall(2,1,"UL").equals("/  "));
+//        System.out.println("row 0: " + sampleUL.renderStringMazeWall(0,1,"UL").equals("/  "));
+//        System.out.println("compare another: " + sampleUL.renderStringMazeWall(2,2,"UL").equals("/  "));
+//        System.out.println("double wall: " + sampleUL.renderStringMazeWall(0,2,"UL").equals("X  "));
+//        System.out.println("compare null: " + sampleUL.renderStringMazeWall(2,1,"UL").equals("/  "));
 //        System.out.println("compare notExist: not applicable");
 //
 //        Maze sampleDL = new Maze();
@@ -331,12 +349,12 @@ public class Maze {
 //        sampleDL.getHexLayout().get(2).get(1).setUpRightWall('1');
 //        sampleDL.renderQuickLayoutText();
 //        System.out.println("DL TESTS:");
-//        System.out.println("rowMax: " + sampleDL.renderTextMazeWall(3,1,"DL").equals("\\"));
-//        System.out.println("colMin: " + sampleDL.renderTextMazeWall(2,0,"DL").equals("\\"));
-//        System.out.println("rowMax / colMin: " + sampleDL.renderTextMazeWall(3,0,"DL").equals("\\"));
-//        System.out.println("compare another: " + sampleDL.renderTextMazeWall(0,3,"DL").equals("\\"));
-//        System.out.println("double wall: " + sampleDL.renderTextMazeWall(1,2,"DL").equals("X"));
-//        System.out.println("compare null: " + sampleDL.renderTextMazeWall(0,1,"DL").equals("\\"));
+//        System.out.println("rowMax: " + sampleDL.renderStringMazeWall(3,1,"DL").equals("\\"));
+//        System.out.println("colMin: " + sampleDL.renderStringMazeWall(2,0,"DL").equals("\\"));
+//        System.out.println("rowMax / colMin: " + sampleDL.renderStringMazeWall(3,0,"DL").equals("\\"));
+//        System.out.println("compare another: " + sampleDL.renderStringMazeWall(0,3,"DL").equals("\\"));
+//        System.out.println("double wall: " + sampleDL.renderStringMazeWall(1,2,"DL").equals("X"));
+//        System.out.println("compare null: " + sampleDL.renderStringMazeWall(0,1,"DL").equals("\\"));
 //
 //        Maze sampleD = new Maze();
 //        String[] layoutD = {"11111",
@@ -347,11 +365,11 @@ public class Maze {
 //        sampleD.getHexLayout().get(1).get(2).setUpWall('1');
 //        sampleD.renderQuickLayoutText();
 //        System.out.println("D TESTS:");
-//        System.out.println("rowMax: " + sampleD.renderTextMazeWall(2,1,"D").equals("__"));
-//        System.out.println("compare another: " + sampleD.renderTextMazeWall(0,1,"D").equals("__"));
-//        System.out.println("double wall: " + sampleD.renderTextMazeWall(0,2,"D").equals("xx"));
-//        System.out.println("compare null: " + sampleD.renderTextMazeWall(0,0,"D").equals("__"));
-//        System.out.println("compare notExist: " + sampleD.renderTextMazeWall(0,3,"D").equals("__"));
+//        System.out.println("rowMax: " + sampleD.renderStringMazeWall(2,1,"D").equals("__"));
+//        System.out.println("compare another: " + sampleD.renderStringMazeWall(0,1,"D").equals("__"));
+//        System.out.println("double wall: " + sampleD.renderStringMazeWall(0,2,"D").equals("xx"));
+//        System.out.println("compare null: " + sampleD.renderStringMazeWall(0,0,"D").equals("__"));
+//        System.out.println("compare notExist: " + sampleD.renderStringMazeWall(0,3,"D").equals("__"));
 //
 //        Maze sampleDR = new Maze();
 //        String[] layoutDR = {"11101",
@@ -362,10 +380,10 @@ public class Maze {
 //        sampleDR.getHexLayout().get(0).get(1).setDownRightWall('1');
 //        sampleDR.renderQuickLayoutText();
 //        System.out.println("DR TESTS:");
-//        System.out.println("colMax: " + sampleDR.renderTextMazeWall(0,4,"DR").equals("/"));
-//        System.out.println("compare another: " + sampleDR.renderTextMazeWall(1,2,"DR").equals("/"));
-//        System.out.println("double wall: " + sampleDR.renderTextMazeWall(0,1,"DR").equals("X"));
-//        System.out.println("compare null: " + sampleDR.renderTextMazeWall(0,2,"DR").equals("/"));
+//        System.out.println("colMax: " + sampleDR.renderStringMazeWall(0,4,"DR").equals("/"));
+//        System.out.println("compare another: " + sampleDR.renderStringMazeWall(1,2,"DR").equals("/"));
+//        System.out.println("double wall: " + sampleDR.renderStringMazeWall(0,1,"DR").equals("X"));
+//        System.out.println("compare null: " + sampleDR.renderStringMazeWall(0,2,"DR").equals("/"));
 //
 //        Maze sampleUR = new Maze();
 //        String[] layoutUR = {"11111",
@@ -376,13 +394,13 @@ public class Maze {
 //        sampleUR.getHexLayout().get(1).get(2).setUpRightWall('1');
 //        sampleUR.renderQuickLayoutText();
 //        System.out.println("UR TESTS:");
-//        System.out.println("row 0: " + sampleUR.renderTextMazeWall(0,2,"UR").equals("\\"));
-//        System.out.println("colMax: " + sampleUR.renderTextMazeWall(2,4,"UR").equals("\\"));
-//        System.out.println("row 0 / colMax: " + sampleUR.renderTextMazeWall(0,4,"UR").equals("\\"));
-//        System.out.println("compare another: " + sampleUR.renderTextMazeWall(2,1,"UR").equals("\\"));
-//        System.out.println("double wall: " + sampleUR.renderTextMazeWall(1,2,"UR").equals("X"));
-//        System.out.println("compare null: " + sampleUR.renderTextMazeWall(2,0,"UR").equals("\\"));
-//        System.out.println("compare notExist: " + sampleUR.renderTextMazeWall(2,3,"UR").equals("\\"));
+//        System.out.println("row 0: " + sampleUR.renderStringMazeWall(0,2,"UR").equals("\\"));
+//        System.out.println("colMax: " + sampleUR.renderStringMazeWall(2,4,"UR").equals("\\"));
+//        System.out.println("row 0 / colMax: " + sampleUR.renderStringMazeWall(0,4,"UR").equals("\\"));
+//        System.out.println("compare another: " + sampleUR.renderStringMazeWall(2,1,"UR").equals("\\"));
+//        System.out.println("double wall: " + sampleUR.renderStringMazeWall(1,2,"UR").equals("X"));
+//        System.out.println("compare null: " + sampleUR.renderStringMazeWall(2,0,"UR").equals("\\"));
+//        System.out.println("compare notExist: " + sampleUR.renderStringMazeWall(2,3,"UR").equals("\\"));
 //
 //    }
 
@@ -407,11 +425,11 @@ public class Maze {
 //        m.checkRenderValidInputs();
 ////        m.getHexLayout().get(2).get(3).setUpWall('1');
 ////        System.out.println("U TESTS:");
-////        System.out.println("row 0: " + m.renderTextMazeWall(0,2,"U").equals(" __ "));
-////        System.out.println("compare another: " + m.renderTextMazeWall(2,2,"U").equals(" __ "));
-////        System.out.println("double wall: " + m.renderTextMazeWall(2,3,"U").equals(" xx "));
-////        System.out.println("compare null: " + m.renderTextMazeWall(2,0,"U").equals(" __ "));
-////        System.out.println("compare notExist: " + m.renderTextMazeWall(2,4,"U").equals(" __ "));
+////        System.out.println("row 0: " + m.renderStringMazeWall(0,2,"U").equals(" __ "));
+////        System.out.println("compare another: " + m.renderStringMazeWall(2,2,"U").equals(" __ "));
+////        System.out.println("double wall: " + m.renderStringMazeWall(2,3,"U").equals(" xx "));
+////        System.out.println("compare null: " + m.renderStringMazeWall(2,0,"U").equals(" __ "));
+////        System.out.println("compare notExist: " + m.renderStringMazeWall(2,4,"U").equals(" __ "));
 ////
 ////
 ////
