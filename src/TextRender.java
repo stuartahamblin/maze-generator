@@ -53,9 +53,9 @@ public class TextRender {
                 }
             }
                 sB.append("]");
+        }
             System.out.println(sB);
             sB.delete(0, sB.length());
-        }
     }
 
     public static void AATool(String[][] AA){
@@ -74,8 +74,9 @@ public class TextRender {
         }
     }
 
-    public static void LATool(List<int[]> LA){
+    public static void LATool(List<int[]> LA, String description){
         StringBuilder sB = new StringBuilder();
+        sB.append(description + " = ");
         for(int row = 0 ; row < LA.size() ; row++){
             sB.append("[");
             for(int col = 0 ; col < LA.get(row).length ; col++){
@@ -85,9 +86,9 @@ public class TextRender {
                 }
             }
             sB.append("]");
+        }
             System.out.println(sB);
             sB.delete(0, sB.length());
-        }
     }
 
     public static String renderWall(String side, char wallType){

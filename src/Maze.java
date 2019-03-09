@@ -150,7 +150,7 @@ public class Maze extends MazeAlgorithms{
 //------------------------------------------------------------------
 
 
-    public List<int[]> findValidNeighbors(int[] position) {
+    public List<int[]> findValidDirections(int[] position) {
         List<List<HexCel>> hL = getHexLayout();
         String[] hexWalls = HexCel.getHexWalls();
         List<int[]> output = new ArrayList<>();
@@ -158,32 +158,32 @@ public class Maze extends MazeAlgorithms{
             switch (wall) {
                 case "U":
                     if(hL.get(position[0]-1).get(position[1]) != null){
-                        output.add(new int[]{position[0]-1,position[1]});
+                        output.add(new int[]{-1,0});
                     }
                     break;
                 case "UL":
                     if(hL.get(position[0]).get(position[1]-1) != null){
-                        output.add(new int[]{position[0],position[1]-1});
+                        output.add(new int[]{0,-1});
                     }
                     break;
                 case "DL":
                     if(hL.get(position[0]+1).get(position[1]-1) != null){
-                        output.add(new int[]{position[0]+1, position[1]-1});
+                        output.add(new int[]{1,-1});
                     }
                     break;
                 case "D":
                     if(hL.get(position[0]+1).get(position[1]) != null){
-                        output.add(new int[]{position[0]+1,position[1]});
+                        output.add(new int[]{1,0});
                     }
                     break;
                 case "DR":
                     if(hL.get(position[0]).get(position[1]+1) != null){
-                        output.add(new int[]{position[0],position[1]+1});
+                        output.add(new int[]{0,1});
                     }
                     break;
                 case "UR":
                     if(hL.get(position[0]-1).get(position[1]+1) != null){
-                        output.add(new int[]{position[0]-1,position[1]+1});
+                        output.add(new int[]{-1,1});
                     }
                     break;
                 default:
@@ -195,37 +195,102 @@ public class Maze extends MazeAlgorithms{
 
     public void wilsonMazeAlgorithm(){
         List<List<HexCel>> hL = getHexLayout();
-        int[] desiredPosition;
-        int[] currentPosition = {0,0};
-        List<int[]> currentNeighbors;
         List<int[]> unusedCells = new ArrayList<>();
-        String[][] usedCells = new String[hL.size()][hL.get(0).size()];
+        int randomDesired;
+        int[] desiredRC;
+        int randomStarting;
+        int[] startingRC;
+        int[] currentRC = new int[2];
+        List<int[]> validDirections;
+        int randomDirection;
+        int[] directionPicked;
+        int[][][] cellDirections = new int[hL.size()][hL.get(0).size()][2];
         for(int row = 1 ; row < hL.size()-1 ; row++){
             for(int col = 1 ; col < hL.get(row).size()-1 ; col++){
                 if(hL.get(row).get(col) != null){
                     unusedCells.add(new int[]{row,col});
-                    usedCells[row][col] = "    ";
+                    cellDirections[row][col][0] = -2;
+                    cellDirections[row][col][1] = -2;
                 }
             }
         }
-        int randomUnused = (int) Math.floor(Math.random() * (unusedCells.size()));
-        desiredPosition = unusedCells.get(randomUnused);
-        usedCells[desiredPosition[0]][desiredPosition[1]] = "used";
-        unusedCells.remove(randomUnused);
+//        TextRender.LATool(unusedCells, "UnusedCells");
+        randomDesired = (int) Math.floor(Math.random() * (unusedCells.size()));
+        desiredRC = unusedCells.get(randomDesired);
+        cellDirections[desiredRC[0]][desiredRC[1]][0] = 4;
+        cellDirections[desiredRC[0]][desiredRC[1]][1] = 4;
+        unusedCells.remove(randomDesired);
 
-        int randomCurrent = (int) Math.floor(Math.random() * (unusedCells.size()));
-        currentPosition = unusedCells.get(randomCurrent);
-        usedCells[currentPosition[0]][currentPosition[1]] = "curr";
-        unusedCells.remove(currentPosition);
+        randomStarting = (int) Math.floor(Math.random() * (unusedCells.size()));
+        startingRC = unusedCells.get(randomStarting);
+        System.out.println("startingRC " +Arrays.toString(startingRC));
 
-        currentNeighbors = findValidNeighbors(currentPosition);
-        int randomNeighbor = (int) Math.floor(Math.random() * (currentNeighbors.size()));
-        int[] pickedNeighbor = currentNeighbors.get(randomNeighbor);
-        usedCells[currentPosition[0]][currentPosition[1]] = "curr";
-        usedCells[pickedNeighbor[0]][pickedNeighbor[1]] = "pick";
+//        TextRender.LATool(validDirections, "ValidDirections");
+//        System.out.println("directionPicked = " + Arrays.toString(directionPicked));;
+        System.out.println("desiredRC = " + Arrays.toString(desiredRC));
+        currentRC[0] = startingRC[0];
+        currentRC[1] = startingRC[1];
 
-        TextRender.AATool(usedCells);
-//        System.out.println(Arrays.toString(usedCells[0]));
+        do {                                                                                    //SEARCH FOR
+
+            System.out.println("currentRC = " + Arrays.toString(currentRC));
+//            System.out.println("startingRC =" +Arrays.toString(startingRC));
+            validDirections = findValidDirections(currentRC);                                   //determine direction
+            randomDirection = (int) Math.floor(Math.random() * (validDirections.size()));
+            directionPicked = validDirections.get(randomDirection);
+
+            cellDirections[currentRC[0]][currentRC[1]][0] = directionPicked[0];                 //record direction on currentRC
+            cellDirections[currentRC[0]][currentRC[1]][1] = directionPicked[1];                 //record direction on currentRC
+
+            currentRC[0] += directionPicked[0];                                                 //set currentRC
+            currentRC[1] += directionPicked[1];                                                 //set currentRC
+
+        } while (!Arrays.equals(currentRC,desiredRC));
+        System.out.println("next loop");
+        currentRC[0] = startingRC[0];
+        currentRC[1] = startingRC[1];
+        System.out.println("currentRC = " + Arrays.toString(currentRC));
+
+        do {                                                                                    //WALK START TO FINISH (FUTURE: CLEAR WALLS IN PATH )
+
+//            System.out.println(cellDirections[currentRC[0]][currentRC[1]][0]);
+//            System.out.println(cellDirections[currentRC[0]][currentRC[1]][1]);
+            currentRC[0] += cellDirections[currentRC[0]][currentRC[1]][0];
+            currentRC[1] += cellDirections[currentRC[0]][currentRC[1]][1];
+            System.out.println("currentRC = " + Arrays.toString(currentRC));
+
+
+        } while (!Arrays.equals(currentRC,desiredRC));
+
+//        START OF LOOP?
+//        System.out.println("currentRC = " + Arrays.toString(currentRC));
+//        validDirections = findValidDirections(currentRC);                                   //determine direction
+//        randomDirection = (int) Math.floor(Math.random() * (validDirections.size()));
+//        directionPicked = validDirections.get(randomDirection);
+//
+//        cellDirections[currentRC[0]][currentRC[1]][0] = directionPicked[0];                 //record direction on currentRC
+//        cellDirections[currentRC[0]][currentRC[1]][1] = directionPicked[1];                 //record direction on currentRC
+//
+//        currentRC[0] += directionPicked[0];                                                 //set new currentRC
+//        currentRC[1] += directionPicked[1];                                                 //set new currentRC
+
+//        START OF LOOP?
+//        System.out.println("currentRC = " + Arrays.toString(currentRC));
+//        validDirections = findValidDirections(currentRC);                                   //determine direction
+//        randomDirection = (int) Math.floor(Math.random() * (validDirections.size()));
+//        directionPicked = validDirections.get(randomDirection);
+//
+//        cellDirections[currentRC[0]][currentRC[1]][0] = directionPicked[0];                 //record direction on currentRC
+//        cellDirections[currentRC[0]][currentRC[1]][1] = directionPicked[1];                 //record direction on currentRC
+//
+//        currentRC[0] += directionPicked[0];                                                 //set new currentRC
+//        currentRC[1] += directionPicked[1];                                                 //set new currentRC
+
+//        cellDirections[currentRC[0]+directionPicked[0]][currentRC[1]+directionPicked[1]][0] = 3;
+//        cellDirections[currentRC[0]+directionPicked[0]][currentRC[1]+directionPicked[1]][1] = 3;
+
+        TextRender.AAATool(cellDirections);
+//        System.out.println(Arrays.toString(cellDirections[0]));
 //        System.out.println(Arrays.toString(unusedCells.get(4)));
     }
 
