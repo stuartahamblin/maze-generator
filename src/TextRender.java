@@ -312,13 +312,7 @@ public class TextRender {
                 "01111"};
         Maze maze = new Maze(layout, 5);
 //        maze.setDownRightWallInst(0,1,'1');
-        maze.clearUpPath(1,1);
-        maze.clearUpLeftPath(1,1);
-        maze.clearDownLeftPath(1,2);
-        maze.clearDownPath(1,2);
-        maze.clearDownRightPath(1,1);
-        maze.clearUpRightPath(3,1);
-        renderTextMaze(maze,true);
+        renderTextMaze(maze,false);
 
     }
 }
