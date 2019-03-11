@@ -2,7 +2,7 @@ import shapes.Hexagon;
 
 import java.util.*;
 
-public class Maze extends MazeAlgorithms{
+public class Maze{
 
     private List<List<HexCel>> hexLayout;
 
@@ -14,28 +14,28 @@ public class Maze extends MazeAlgorithms{
         this.hexLayout = hexLayout;
     }
 
-    public void setUpWallInst(int row, int col, char wallType){
-        this.getHexLayout().get(row).get(col).setUpWall(wallType);
+    public void setUpWallInst(int[] rowCol, char wallType){
+        this.getHexLayout().get(rowCol[0]).get(rowCol[1]).setUpWall(wallType);
     }
 
-    public void setUpLeftWallInst(int row, int col, char wallType){
-        this.getHexLayout().get(row).get(col).setUpLeftWall(wallType);
+    public void setUpLeftWallInst(int[] rowCol, char wallType){
+        this.getHexLayout().get(rowCol[0]).get(rowCol[1]).setUpLeftWall(wallType);
     }
 
-    public void setDownLeftWallInst(int row, int col, char wallType){
-        this.getHexLayout().get(row).get(col).setDownLeftWall(wallType);
+    public void setDownLeftWallInst(int[] rowCol, char wallType){
+        this.getHexLayout().get(rowCol[0]).get(rowCol[1]).setDownLeftWall(wallType);
     }
 
-    public void setDownWallInst(int row, int col, char wallType){
-        this.getHexLayout().get(row).get(col).setDownWall(wallType);
+    public void setDownWallInst(int[] rowCol, char wallType){
+        this.getHexLayout().get(rowCol[0]).get(rowCol[1]).setDownWall(wallType);
     }
 
-    public void setDownRightWallInst(int row, int col, char wallType){
-        this.getHexLayout().get(row).get(col).setDownRightWall(wallType);
+    public void setDownRightWallInst(int[] rowCol, char wallType){
+        this.getHexLayout().get(rowCol[0]).get(rowCol[1]).setDownRightWall(wallType);
     }
 
-    public void setUpRightWallInst(int row, int col, char wallType){
-        this.getHexLayout().get(row).get(col).setUpRightWall(wallType);
+    public void setUpRightWallInst(int[] rowCol, char wallType){
+        this.getHexLayout().get(rowCol[0]).get(rowCol[1]).setUpRightWall(wallType);
     }
 
     public void clearUpPath(int[] rowCol){
@@ -68,7 +68,25 @@ public class Maze extends MazeAlgorithms{
         this.getHexLayout().get(rowCol[0]-1).get(rowCol[1]+1).setDownLeftWall('0');
     }
 
-    public int shiftZeroUp(String[] layout){
+    public Maze(String[] simpleLayout, double sideLength){
+        initializeMaze(simpleLayout, sideLength);
+        wilsonMazeAlgorithm();
+    }
+
+    public Maze(String[] simpleLayout, int[] entrancePosition, int[] exitPosition, double sideLength){
+        initializeMaze(simpleLayout, sideLength);
+        wilsonMazeAlgorithm();
+
+        List<int[]> entranceDirections = findEntranceExitDirections(entrancePosition);
+        int randomEntranceIndex = (int) Math.floor(Math.random() * entranceDirections.size());
+        clearEntranceExit(entrancePosition, entranceDirections.get(randomEntranceIndex));
+
+        List<int[]> exitDirections = findEntranceExitDirections(exitPosition);
+        int randomExitIndex = (int) Math.floor(Math.random() * exitDirections.size());
+        clearEntranceExit(exitPosition, exitDirections.get(randomExitIndex));
+    }
+
+    public int shiftLastRowFirstCol(String[] layout){
         int outputShiftUp = layout[layout.length-1].length()-1;
         int lowestY = layout.length-1;
         int lowestX = layout[lowestY].length()-1;
@@ -107,7 +125,7 @@ public class Maze extends MazeAlgorithms{
 
     public void initializeMaze(String[] simpleLayout, double sideLength){
         String[] layout = bufferEdges(simpleLayout);
-        int shiftUp = shiftZeroUp(layout);
+        int shiftUp = shiftLastRowFirstCol(layout);
         double bottomToCentroid = Hexagon.getBottomToCentroid(sideLength);
         double leftToCentroid = Hexagon.getLeftToCentroid(sideLength);
         List<List<HexCel>> hL = new ArrayList<>();
@@ -141,44 +159,80 @@ public class Maze extends MazeAlgorithms{
         setHexLayout(hL);
     }
 
-    public Maze(String[] simpleLayout, double sideLength){
-        initializeMaze(simpleLayout, sideLength);
-//        MazeAlgorithms.wilsonMazeAlgorithm();
-    }
-
     public List<int[]> findValidDirections(int[] position) {
-        List<List<HexCel>> hL = getHexLayout();
         String[] hexWalls = HexCel.getHexWalls();
         List<int[]> output = new ArrayList<>();
         for(String wall : hexWalls){
             switch (wall) {
                 case "U":
-                    if(hL.get(position[0]-1).get(position[1]) != null){
+                    if(getHexLayout().get(position[0]-1).get(position[1]) != null){
                         output.add(new int[]{-1,0});
                     }
                     break;
                 case "UL":
-                    if(hL.get(position[0]).get(position[1]-1) != null){
+                    if(getHexLayout().get(position[0]).get(position[1]-1) != null){
                         output.add(new int[]{0,-1});
                     }
                     break;
                 case "DL":
-                    if(hL.get(position[0]+1).get(position[1]-1) != null){
+                    if(getHexLayout().get(position[0]+1).get(position[1]-1) != null){
                         output.add(new int[]{1,-1});
                     }
                     break;
                 case "D":
-                    if(hL.get(position[0]+1).get(position[1]) != null){
+                    if(getHexLayout().get(position[0]+1).get(position[1]) != null){
                         output.add(new int[]{1,0});
                     }
                     break;
                 case "DR":
-                    if(hL.get(position[0]).get(position[1]+1) != null){
+                    if(getHexLayout().get(position[0]).get(position[1]+1) != null){
                         output.add(new int[]{0,1});
                     }
                     break;
                 case "UR":
-                    if(hL.get(position[0]-1).get(position[1]+1) != null){
+                    if(getHexLayout().get(position[0]-1).get(position[1]+1) != null){
+                        output.add(new int[]{-1,1});
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        return output;
+    }
+
+    public List<int[]> findEntranceExitDirections(int[] position) {
+        String[] hexWalls = HexCel.getHexWalls();
+        List<int[]> output = new ArrayList<>();
+        for(String wall : hexWalls){
+            switch (wall) {
+                case "U":
+                    if(getHexLayout().get(position[0]-1).get(position[1]) == null){
+                        output.add(new int[]{-1,0});
+                    }
+                    break;
+                case "UL":
+                    if(getHexLayout().get(position[0]).get(position[1]-1) == null){
+                        output.add(new int[]{0,-1});
+                    }
+                    break;
+                case "DL":
+                    if(getHexLayout().get(position[0]+1).get(position[1]-1) == null){
+                        output.add(new int[]{1,-1});
+                    }
+                    break;
+                case "D":
+                    if(getHexLayout().get(position[0]+1).get(position[1]) == null){
+                        output.add(new int[]{1,0});
+                    }
+                    break;
+                case "DR":
+                    if(getHexLayout().get(position[0]).get(position[1]+1) == null){
+                        output.add(new int[]{0,1});
+                    }
+                    break;
+                case "UR":
+                    if(getHexLayout().get(position[0]-1).get(position[1]+1) == null){
                         output.add(new int[]{-1,1});
                     }
                     break;
@@ -217,6 +271,32 @@ public class Maze extends MazeAlgorithms{
         nextCurrent[0] = current[0] + direction[0];
         nextCurrent[1] = current[1] + direction[1];
         return nextCurrent;
+    }
+
+    public void clearEntranceExit(int[] current, int[] direction){
+        if(direction[1] >= 0 && direction[0] <= 0){
+            if(direction[0] == -1){                             //UP
+                if(direction[1] == 0){
+                    setUpWallInst(current, '0');
+                } else {
+                    setUpRightWallInst(current, '0');
+                }
+
+            } else {
+                setDownRightWallInst(current,'0');
+            }
+        } else if(direction[1] <= 0 && direction[0] >= 0){
+            if(direction[0] == 1){                              //DOWN
+                if(direction[1] == 0){
+                    setDownWallInst(current, '0');
+                } else {
+                    setDownLeftWallInst(current, '0');
+                }
+
+            } else {
+                setUpLeftWallInst(current, '0');
+            }
+        }
     }
 
     public void wilsonMazeAlgorithm(){
@@ -291,8 +371,7 @@ public class Maze extends MazeAlgorithms{
                 "11111",
                 "111",
                 "1"};
-        Maze maze = new Maze(layout, 5);
-        maze.wilsonMazeAlgorithm();
+        Maze maze = new Maze(layout, new int[]{1,7}, new int[]{11,1},5);
         TextRender.renderTextMaze(maze,false);
     }
 

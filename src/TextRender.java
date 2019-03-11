@@ -305,14 +305,4 @@ public class TextRender {
 //        return value ? true : false;
 //    }
 
-    public static void main(String[] args) {
-        String[] layout = {"1111",
-                "11111",
-                "011",
-                "01111"};
-        Maze maze = new Maze(layout, 5);
-//        maze.setDownRightWallInst(0,1,'1');
-        renderTextMaze(maze,false);
-
-    }
 }
