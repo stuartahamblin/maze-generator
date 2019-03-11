@@ -55,7 +55,7 @@ public class Maze extends MazeAlgorithms{
 
     public void clearDownPath(int[] rowCol){
         this.getHexLayout().get(rowCol[0]).get(rowCol[1]).setDownWall('0');
-        this.getHexLayout().get(rowCol[0]+1).get(rowCol[1]).setUpRightWall('0');
+        this.getHexLayout().get(rowCol[0]+1).get(rowCol[1]).setUpWall('0');
     }
 
     public void clearDownRightPath(int[] rowCol){
@@ -241,77 +241,59 @@ public class Maze extends MazeAlgorithms{
                 }
             }
         }
-
-        randomAvailIndex = (int) Math.floor(Math.random() * availCount);    ///Key the path will finish at
-
-        for(String key : keys){                                             //may combine with lower
-            if(rowColAvail.get(key)){
-                if(randomAvailIndex == 0){
-                    availCount--;
-                    rowColAvail.put(key,false);
-                    break;
+        randomAvailIndex = (int) Math.floor(Math.random() * availCount);    ///Key the first path will finish at
+        rowColAvail.put(keys.get(randomAvailIndex),false);
+        availCount--;
+        do {
+            randomAvailIndex = (int) Math.floor(Math.random() * availCount);
+            for (String key : keys) {
+                if (rowColAvail.get(key)) {
+                    if (randomAvailIndex == 0) {
+                        startingRC[0] = Integer.parseInt(key.substring(0, key.indexOf(",")));        //Key the path will start at
+                        startingRC[1] = Integer.parseInt(key.substring(key.indexOf(",") + 1));
+                        break;
+                    }
+                    randomAvailIndex--;
                 }
-                randomAvailIndex--;
             }
-        }
-
-        randomAvailIndex = (int) Math.floor(Math.random() * availCount);    //Key the path will start at
-
-        for(String key : keys){
-            if(rowColAvail.get(key)){
-                if(randomAvailIndex == 0){
-                    startingRC[0] = Integer.parseInt(key.substring(0,key.indexOf(",")));
-                    startingRC[1] = Integer.parseInt(key.substring(key.indexOf(",")+1));
-                    break;
-                }
-                randomAvailIndex--;
-            }
-        }
-
-        currentRC = startingRC.clone();
-
-        do {                                                                                    //SEARCH FOR
-
-            validDirections = findValidDirections(currentRC);                                   //determine direction
-            randomDirection = (int) Math.floor(Math.random() * (validDirections.size()));
-            directionPicked = validDirections.get(randomDirection);
-
-            cellDirections[currentRC[0]][currentRC[1]][0] = directionPicked[0];                 //record direction on currentRC
-            cellDirections[currentRC[0]][currentRC[1]][1] = directionPicked[1];                 //record direction on currentRC
-
-            currentRC[0] += directionPicked[0];                                                 //set currentRC
-            currentRC[1] += directionPicked[1];                                                 //set currentRC
-
-        } while (rowColAvail.get(currentRC[0] + "," + currentRC[1]));
-
-        currentRC[0] = startingRC[0];
-        currentRC[1] = startingRC[1];
-
-        do {                                                                                    //WALK START TO FINISH (FUTURE: CLEAR WALLS IN PATH )
-
-            directionPicked[0] = cellDirections[currentRC[0]][currentRC[1]][0];
-            directionPicked[1] = cellDirections[currentRC[0]][currentRC[1]][1];
-
-            rowColAvail.put(currentRC[0] + "," + currentRC[1],false);
-
-            currentRC = clearPath(currentRC, directionPicked);
-
-        } while (rowColAvail.get(currentRC[0] + "," + currentRC[1]));
-
-        System.out.println(rowColAvail);
-        TextRender.AAATool(cellDirections);
-
+            currentRC = startingRC.clone();
+            do {                                                                                    //SEARCH FOR FINISH
+                validDirections = findValidDirections(currentRC);                                   //determine direction
+                randomDirection = (int) Math.floor(Math.random() * (validDirections.size()));
+                directionPicked = validDirections.get(randomDirection);
+                cellDirections[currentRC[0]][currentRC[1]][0] = directionPicked[0];                 //record direction on currentRC
+                cellDirections[currentRC[0]][currentRC[1]][1] = directionPicked[1];
+                currentRC[0] += directionPicked[0];                                                 //set currentRC
+                currentRC[1] += directionPicked[1];
+            } while (rowColAvail.get(currentRC[0] + "," + currentRC[1]));
+            currentRC[0] = startingRC[0];
+            currentRC[1] = startingRC[1];
+            do {                                                                                    //WALK START TO FINISH
+                directionPicked[0] = cellDirections[currentRC[0]][currentRC[1]][0];
+                directionPicked[1] = cellDirections[currentRC[0]][currentRC[1]][1];
+                rowColAvail.put(currentRC[0] + "," + currentRC[1], false);
+                availCount--;
+                currentRC = clearPath(currentRC, directionPicked);
+            } while (rowColAvail.get(currentRC[0] + "," + currentRC[1]));
+        } while (availCount > 0);
     }
 
     public static void main(String[] args) {
-        String[] layout = {"1111",
+        String[] layout = {
+                "0000001",
+                "0000111",
+                "0011111",
+                "1111111",
+                "1110011",
+                "1100011",
+                "1100111",
+                "1111111",
                 "11111",
-                "011",
-                "01111"};
+                "111",
+                "1"};
         Maze maze = new Maze(layout, 5);
         maze.wilsonMazeAlgorithm();
         TextRender.renderTextMaze(maze,false);
-//        TextRender.LATool(maze.findValidNeighbors(new int[]{1,2}));
     }
 
 //    public static void main(String[] args) {
