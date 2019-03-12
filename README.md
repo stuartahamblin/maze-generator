@@ -2,6 +2,8 @@
 
 Example: Generates random maze with a shape of layout provided
 
+    CODE EXAMPLE:
+    
     public static void main(String[] args) {
         String[] layout = {
                 "0000001",
@@ -18,3 +20,23 @@ Example: Generates random maze with a shape of layout provided
         Maze maze = new Maze(layout, new int[]{1,7}, new int[]{11,1},5);
         TextRender.renderTextMaze(maze,false);                               //true to show maze Cell Indexes
     }
+    
+    SAMPLE RANDOM OUTPUT:
+    
+     __    __    __      
+    /  \__/  \__/  \__/  \
+    \__   \__   \__   \  /
+    /  \  /  \__   \__   \
+    \                 \  /
+    /  \__/  \__/  \__/  \
+    \__/   __/  \__    __/
+    /     /        \__/  \
+    \  /  \        /   __/
+    /  \__/        \  /  \
+    \     \__    __/  \  /
+    /  \__/  \__/  \__   \
+    \__   \__   \  /     /
+    /  \        /   __/  \
+    \__   \__/     /  \  /
+    /   __/   __/   __/  \
+     __/  \__/  \__/  \__/
