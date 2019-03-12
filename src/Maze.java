@@ -165,32 +165,32 @@ public class Maze{
         for(String wall : hexWalls){
             switch (wall) {
                 case "U":
-                    if(getHexLayout().get(position[0]-1).get(position[1]) != null){
+                    if(Objects.nonNull(getHexLayout().get(position[0]-1).get(position[1]))){
                         output.add(new int[]{-1,0});
                     }
                     break;
                 case "UL":
-                    if(getHexLayout().get(position[0]).get(position[1]-1) != null){
+                    if(Objects.nonNull(getHexLayout().get(position[0]).get(position[1]-1))){
                         output.add(new int[]{0,-1});
                     }
                     break;
                 case "DL":
-                    if(getHexLayout().get(position[0]+1).get(position[1]-1) != null){
+                    if(Objects.nonNull(getHexLayout().get(position[0]+1).get(position[1]-1))){
                         output.add(new int[]{1,-1});
                     }
                     break;
                 case "D":
-                    if(getHexLayout().get(position[0]+1).get(position[1]) != null){
+                    if(Objects.nonNull(getHexLayout().get(position[0]+1).get(position[1]))){
                         output.add(new int[]{1,0});
                     }
                     break;
                 case "DR":
-                    if(getHexLayout().get(position[0]).get(position[1]+1) != null){
+                    if(Objects.nonNull(getHexLayout().get(position[0]).get(position[1]+1))){
                         output.add(new int[]{0,1});
                     }
                     break;
                 case "UR":
-                    if(getHexLayout().get(position[0]-1).get(position[1]+1) != null){
+                    if(Objects.nonNull(getHexLayout().get(position[0]-1).get(position[1]+1))){
                         output.add(new int[]{-1,1});
                     }
                     break;
@@ -313,7 +313,7 @@ public class Maze{
         int[][][] cellDirections = new int[hL.size()][hL.get(0).size()][2];
         for(int row = 1 ; row < hL.size()-1 ; row++){
             for(int col = 1 ; col < hL.get(row).size()-1 ; col++){
-                if(hL.get(row).get(col) != null){
+                if(Objects.nonNull(hL.get(row).get(col))){
                     String avail = row + "," + col;
                     keys.add(avail);
                     rowColAvail.put(avail,true);
@@ -337,7 +337,7 @@ public class Maze{
                 }
             }
             currentRC = startingRC.clone();
-            do {                                                                                    //SEARCH FOR FINISH
+            do {
                 validDirections = findValidDirections(currentRC);                                   //determine direction
                 randomDirection = (int) Math.floor(Math.random() * (validDirections.size()));
                 directionPicked = validDirections.get(randomDirection);
@@ -346,8 +346,7 @@ public class Maze{
                 currentRC[0] += directionPicked[0];                                                 //set currentRC
                 currentRC[1] += directionPicked[1];
             } while (rowColAvail.get(currentRC[0] + "," + currentRC[1]));
-            currentRC[0] = startingRC[0];
-            currentRC[1] = startingRC[1];
+            currentRC = startingRC.clone();
             do {                                                                                    //WALK START TO FINISH
                 directionPicked[0] = cellDirections[currentRC[0]][currentRC[1]][0];
                 directionPicked[1] = cellDirections[currentRC[0]][currentRC[1]][1];
@@ -357,6 +356,16 @@ public class Maze{
             } while (rowColAvail.get(currentRC[0] + "," + currentRC[1]));
         } while (availCount > 0);
     }
+
+
+//    public int[][] row(int value) {
+//        // create rows here
+//    }
+//
+//    public int[] column(int value) {
+//        // create columns
+//    }
+
 
 
     public static void main(String[] args) {

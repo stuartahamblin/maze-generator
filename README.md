@@ -1,6 +1,6 @@
 # Maze-generator
 
-Example:
+Example: Generates random maze with a shape of layout provided
 
     public static void main(String[] args) {
         String[] layout = {

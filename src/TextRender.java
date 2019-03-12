@@ -1,6 +1,13 @@
 import java.util.List;
+import java.util.Objects;
 
 public class TextRender {
+
+    public static final int UPPER_CELL = 1;
+    public static final int LOWER_CELL = 2;
+    public static final int ROW_INDEX = 0;
+    public static final int COL_INDEX = 1;
+    public static final int HEX_UPPER_LOWER_INDEX = 2;
 
     public static void checkRenderValidInputs(Maze maze){
         String[] sides = {"U","UL","DL","D","DR","UR"};
@@ -10,7 +17,7 @@ public class TextRender {
             System.out.println("CHECK " + sides[w] + " values");
             for(int i = 0 ; i < hL.size() ; i++){
                 for(int j = 0 ; j < hL.get(i).size() ; j++) {
-                    if(hL.get(i).get(j) != null){
+                    if(Objects.nonNull(hL.get(i).get(j))){
                         sB.append(renderStringMazeWall(maze, i,j,sides[w]));
                         sB.append(", ");
                     } else if (hL.get(i).get(j) == null) {
@@ -133,38 +140,39 @@ public class TextRender {
         List<List<HexCel>> hL = maze.getHexLayout();
         switch(side){
             case "U":
+                ;
                 wallCheck += hL.get(row).get(col).getUpWall();
-                if (hL.get(row - 1).get(col) != null) {                             //omit if compare null
+                if (Objects.nonNull(hL.get(row - 1).get(col))) {                             //omit if compare null
                     wallCheck += hL.get(row - 1).get(col).getDownWall();
                 }
                 break;
             case "UL":
                 wallCheck += hL.get(row).get(col).getUpLeftWall();
-                if(hL.get(row).get(col-1) != null){                                 //omit if compare null
+                if(Objects.nonNull(hL.get(row).get(col-1))){                                 //omit if compare null
                     wallCheck += hL.get(row).get(col-1).getDownRightWall();
                 }
                 break;
             case "DL":
                 wallCheck += hL.get(row).get(col).getDownLeftWall();
-                if(hL.get(row+1).get(col-1) != null){                               //omit if compare null
+                if(Objects.nonNull(hL.get(row+1).get(col-1))){                               //omit if compare null
                     wallCheck += hL.get(row+1).get(col-1).getUpRightWall();
                 }
                 break;
             case "D":
                 wallCheck += hL.get(row).get(col).getDownWall();
-                if(hL.get(row+1).get(col) != null){                                 //omit if compare null
+                if(Objects.nonNull(hL.get(row+1).get(col))){                                 //omit if compare null
                     wallCheck += hL.get(row+1).get(col).getUpWall();
                 }
                 break;
             case "DR":
                 wallCheck += hL.get(row).get(col).getDownRightWall();
-                if(hL.get(row).get(col+1) != null){                                 //omit if compare null
+                if(Objects.nonNull(hL.get(row).get(col+1))){                                 //omit if compare null
                     wallCheck += hL.get(row).get(col+1).getUpLeftWall();
                 }
                 break;
             case "UR":
                 wallCheck += hL.get(row).get(col).getUpRightWall();
-                if(hL.get(row-1).get(col+1) != null){                               //omit if compare null
+                if(Objects.nonNull(hL.get(row-1).get(col+1))){                               //omit if compare null
                     wallCheck += hL.get(row-1).get(col+1).getDownLeftWall();
                 }
                 break;
@@ -188,15 +196,15 @@ public class TextRender {
                 for(int col = 0 ; col < rowLength ; col++){
                     int pick = 2*row+col+h;                         //loop moves DR
                     if( pick >= 0 && pick < output.length){
-                        output[pick][col][0] = row;
-                        output[pick][col][1] = col;
-                        output[pick][col][2] = h;
+                        output[pick][col][ROW_INDEX] = row;
+                        output[pick][col][COL_INDEX] = col;
+                        output[pick][col][HEX_UPPER_LOWER_INDEX] = h;
                         if(row >= hL.size()){
-                            output[pick][col][0] *= -1;             //negative row values represent blank/null hex cells
+                            output[pick][col][ROW_INDEX] *= -1;             //negative row values represent blank/null hex cells
                         }
                         if(row < hL.size() && row >= 0){
-                            if(hL.get(row).get(col) == null){
-                                output[pick][col][0] = -1;          //negative row values represent blank/null hex cells
+                            if(Objects.isNull(hL.get(row).get(col))){
+                                output[pick][col][ROW_INDEX] = -1;          //negative row values represent blank/null hex cells
                             }
                         }
                     }
@@ -254,42 +262,42 @@ public class TextRender {
         StringBuilder sB = new StringBuilder();
         for(int textLine = 3 ; textLine < rS.length - 3 ; textLine++){
             for(int textString = 1 ; textString < rS[0].length-1 ; textString++){
-                int xPick = rS[textLine][textString][0];
-                int yPick = rS[textLine][textString][1];
-                int upperLowerHex = rS[textLine][textString][2];
-                if(xPick >= 0){                                                         //if present hex
-                    if(upperLowerHex == 1){                                             //if upper hex
-                        sB.append(renderStringMazeWall(maze, xPick, yPick, "UL"));
-                        if(includeIndex){                                               //if indexes included
+                int rPick = rS[textLine][textString][ROW_INDEX];
+                int cPick = rS[textLine][textString][COL_INDEX];
+                int upperLowerHex = rS[textLine][textString][HEX_UPPER_LOWER_INDEX];
+                if(rPick >= 0){                                                             //if hex present
+                    if(upperLowerHex == UPPER_CELL){                                        //if upper hex
+                        sB.append(renderStringMazeWall(maze, rPick, cPick, "UL"));
+                        if(includeIndex){                                                   //if indexes included
                             sB.delete(sB.length()-2,sB.length());
-                            String x = Integer.toString(xPick);
-                            String y = Integer.toString(yPick);
+                            String x = Integer.toString(rPick);
+                            String y = Integer.toString(cPick);
                             sB.append(x.charAt(x.length()-1));
                             sB.append(y.charAt(y.length()-1));
                         }
-                        if(rS[textLine][textString+1][0] < 0){                          //if UR hex is blank/null
-                            sB.append(renderStringMazeWall(maze, xPick, yPick, "UR"));
+                        if(rS[textLine][textString+1][ROW_INDEX] < 0){   //if UR hex is blank/null
+                            sB.append(renderStringMazeWall(maze, rPick, cPick, "UR"));
                         }
-                    } else if (upperLowerHex == 2){                                     //if lower hex
-                        sB.append(renderStringMazeWall(maze, xPick, yPick, "DL"));
-                        sB.append(renderStringMazeWall(maze, xPick, yPick, "D"));
-                        if(rS[textLine][textString+1][0] < 0){                          //if DR hex is blank/null
-                            sB.append(renderStringMazeWall(maze, xPick, yPick, "DR"));
+                    } else if (upperLowerHex == LOWER_CELL){                                    //if lower hex
+                        sB.append(renderStringMazeWall(maze, rPick, cPick, "DL"));
+                        sB.append(renderStringMazeWall(maze, rPick, cPick, "D"));
+                        if(rS[textLine][textString+1][ROW_INDEX] < 0){   //if DR hex is blank/null
+                            sB.append(renderStringMazeWall(maze, rPick, cPick, "DR"));
                         }
                     }
-                } else {                                                                //if blank/null hex cells
-                    if(rS[textLine][textString][2] == 1){                               //if upper blank/null hex cell
-                        if(rS[textLine][textString-1][0] < 0){                          //if UL hex is blank/null
+                } else {                                                                        //if blank/null hex cells
+                    if(rS[textLine][textString][HEX_UPPER_LOWER_INDEX] == UPPER_CELL){                       //if upper blank/null hex cell
+                        if(rS[textLine][textString-1][0] < 0){                                  //if UL hex is blank/null
                             sB.append(" ");
                         }
                         sB.append("  ");
-                    } else if (upperLowerHex == 2){                                     //if lower blank/null hex cell
-                        if(rS[textLine][textString-1][0] < 0){                          //if DL hex is blank/null
+                    } else if (upperLowerHex == LOWER_CELL){                                    //if lower hex cell
+                        if(rS[textLine][textString-1][ROW_INDEX] < 0){                          //if DL hex is blank/null
                             sB.append(" ");
                         }
-                        if(rS[textLine+1][textString][0] > 0){                          //if D hex present
-                            sB.append(renderStringMazeWall(maze, rS[textLine+1][textString][0], rS[textLine+1][textString][1], "U"));
-                        } else {                                                        //if D hex blank/null
+                        if(rS[textLine+1][textString][ROW_INDEX] > 0){                          //if D hex present
+                            sB.append(renderStringMazeWall(maze, rS[textLine+1][textString][ROW_INDEX], rS[textLine+1][textString][COL_INDEX], "U"));
+                        } else {                                                                //if D hex blank/null
                             sB.append("  ");
                         }
                     }
